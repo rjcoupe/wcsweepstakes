@@ -1,0 +1,20 @@
+<div id="group_stage">
+	<% @groups.each do |letter, group| %>
+		<h3>Group <%= letter %></h3>
+		<table id="group_<%=letter%>">
+			<tr><th></th><th>P</th><th>W</th><th>D</th><th>L</th><th>F</th><th>A</th><th>Pts</th></tr>
+			<% group.each do |team| %>
+				<tr>
+					<td><%= team.name %> [<%=team.person.present? ? team.person.name : 'Nobody' %>]</td>
+					<td><%= team.list_matches(true).count %></td>
+					<td><%= team.list_results('w').count %></td>
+					<td><%= team.list_results('d').count %></td>
+					<td><%= team.list_results('l').count %></td>
+					<td></td>
+					<td></td>
+					<td id="<%=team.name%>-points"></td>
+				</tr>
+			<% end %>
+		</table>
+	<% end %>
+</div>
