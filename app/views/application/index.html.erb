@@ -1,20 +1,37 @@
 <div id="group_stage">
 	<% @groups.each do |letter, group| %>
 		<h3>Group <%= letter %></h3>
-		<table id="group_<%=letter%>">
+		<table id="group_<%=letter%>_league">
 			<tr><th></th><th>P</th><th>W</th><th>D</th><th>L</th><th>F</th><th>A</th><th>Pts</th></tr>
-			<% group.each do |team| %>
-				<tr>
+			<% group[:teams].each do |team| %>
+				<% team.max_gpoints < group[:teams][1].gpoints ? qualifyclass = 'cannot_qualify' : qualifyclass = 'can_qualify' %>
+				<tr class='<%=qualifyclass%>'>
 					<td><%= team.name %> [<%=team.person.present? ? team.person.name : 'Nobody' %>]</td>
-					<td><%= team.list_matches(true).count %></td>
-					<td><%= team.list_results('w').count %></td>
-					<td><%= team.list_results('d').count %></td>
-					<td><%= team.list_results('l').count %></td>
-					<td></td>
-					<td></td>
-					<td id="<%=team.name%>-points"></td>
+					<td><%= team.list_matches(true, 'G').count %></td>
+					<td><%= team.list_results('w', 'G').count %></td>
+					<td><%= team.list_results('d', 'G').count %></td>
+					<td><%= team.list_results('l', 'G').count %></td>
+					<td><%= team.ggoals('f')%></td>
+					<td><%= team.ggoals('a')%></td>
+					<td id="<%=team.name%>-points"><%=team.gpoints%></td>
 				</tr>
 			<% end %>
+		</table>
+		<table id="group_<%=letter%>_matches">
+		<% unless group[:matches].blank? %>
+		<% group[:matches].each do |match| %>
+			<tr>
+				<td><%=match.date.strftime('%d %m %y')%></td>
+				<td><%=Team.find(match.team1).name%></td>
+				<% if match.team1_goals.present? and match.team2_goals.present? %>
+					<td><%= "#{match.team1_goals} - #{match.team2_goals}" %></td>
+				<% else %>
+					<td>v</td>
+				<% end %>
+				<td><%=Team.find(match.team2).name%></td>
+			</tr>
+		<% end %>
+		<% end %>
 		</table>
 	<% end %>
 </div>

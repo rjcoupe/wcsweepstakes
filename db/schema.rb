@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140520113557) do
+ActiveRecord::Schema.define(version: 20140521112831) do
 
   create_table "groups", force: true do |t|
     t.string   "letter"
@@ -21,12 +21,14 @@ ActiveRecord::Schema.define(version: 20140520113557) do
 
   create_table "matches", force: true do |t|
     t.string   "stage"
-    t.integer  "team1",       null: false
-    t.integer  "team2",       null: false
+    t.integer  "team1",                   null: false
+    t.integer  "team2",                   null: false
     t.integer  "team1_goals"
     t.integer  "team2_goals"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.datetime "date"
+    t.integer  "group_id",    default: 0, null: false
   end
 
   create_table "people", force: true do |t|

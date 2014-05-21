@@ -6,14 +6,14 @@ class ApplicationController < ActionController::Base
   def index
   	@groups = {
   		#'A' => Team.where(group_id: Group.find_by(letter: 'A').id).order('name ASC'),
-  		'A' => Group.find_by(letter: 'A').teams,
-  		'B' => Group.find_by(letter: 'A').teams,
-  		'C' => Group.find_by(letter: 'A').teams,
-  		'D' => Group.find_by(letter: 'A').teams,
-  		'E' => Group.find_by(letter: 'A').teams,
-  		'F' => Group.find_by(letter: 'A').teams,
-  		'G' => Group.find_by(letter: 'A').teams,
-  		'H' => Group.find_by(letter: 'A').teams
+  		'A' => {teams: Group.find_by(letter: 'A').teams.order('qpoints DESC'), matches: Group.find_by(letter: 'A').matches.order('date ASC')},
+  		'B' => {teams: Group.find_by(letter: 'B').teams},
+  		'C' => {teams: Group.find_by(letter: 'C').teams},
+  		'D' => {teams: Group.find_by(letter: 'D').teams},
+  		'E' => {teams: Group.find_by(letter: 'E').teams},
+  		'F' => {teams: Group.find_by(letter: 'F').teams},
+  		'G' => {teams: Group.find_by(letter: 'G').teams},
+  		'H' => {teams: Group.find_by(letter: 'H').teams}
   	}
 
 
