@@ -26,15 +26,45 @@ class Team < ActiveRecord::Base
 	end
 
 	def ggoals(type)
+		matches = self.list_matches(true, 'G')
+		goals = 0
 		case type
 		when 'f'
+			matches.each do |m|
+				if m.team1 == self.id then
+					goals += m.team1_goals
+				elsif m.team2 == self.id then
+					goals += m.team2_goals
+				end
+			end
 		when 'a'
+			matches.each do |m|
+				if m.team1 == self.id then
+					goals += m.team2_goals
+				elsif m.team2 == self.id then
+					goals += m.team1_goals
+				end
+			end
 		end
+		goals
 	end
 
 	def max_gpoints
-		3 * (3 - self.list_matches(true, 'G').count)
+		3 * (3 - self.list_matches(true, 'G').count) + self.qpoints
 	end
+
+	def has_qualified?
+		can_qualify = 0
+		self.group.teams.where('id <> ?', self.id).each do |t|
+			can_qualify += 1 if t.can_qualify?
+		end
+		can_qualify == 2 ? false : true
+	end
+
+	def can_qualify?
+		max_gpoints >= self.group.teams.order('qpoints DESC').offset(1).limit(1).first.max_gpoints
+	end
+
 
 	
 end
