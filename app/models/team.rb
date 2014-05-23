@@ -53,6 +53,18 @@ class Team < ActiveRecord::Base
 		3 * (3 - self.list_matches(true, 'G').count) + self.qpoints
 	end
 
+	def group_position
+		k = 0
+		Team.where('group_id = ?', self.group_id).order('qpoints DESC, (ggoals_for - ggoals_against) DESC, ggoals_for DESC, ggoals_against ASC').each do |t|
+			k += 1
+			puts "Team: #{t}"
+			puts "Key: #{k}"
+			if t == self then
+				return k
+			end
+		end
+	end
+
 	def has_qualified?
 		can_get_more_points = 0
 		self.group.teams.where('id != ?', self.id).each do |t|
@@ -64,7 +76,7 @@ class Team < ActiveRecord::Base
 	end
 
 	def can_qualify?
-		max_gpoints >= self.group.teams.order('qpoints DESC').offset(1).limit(1).first.max_gpoints
+		return true if self.group_position <= 2
 	end
 
 
