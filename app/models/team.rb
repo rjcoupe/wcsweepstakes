@@ -54,11 +54,13 @@ class Team < ActiveRecord::Base
 	end
 
 	def has_qualified?
-		can_qualify = 0
-		self.group.teams.where('id <> ?', self.id).each do |t|
-			can_qualify += 1 if t.can_qualify?
+		can_get_more_points = 0
+		self.group.teams.where('id != ?', self.id).each do |t|
+			can_get_more_points += 1 if t.max_gpoints >= self.max_gpoints
+			puts "#{t.name} can get #{t.max_gpoints}"
 		end
-		can_qualify == 2 ? false : true
+		puts "I can get #{self.max_gpoints}"
+		can_get_more_points >= 2 ? false : true
 	end
 
 	def can_qualify?
