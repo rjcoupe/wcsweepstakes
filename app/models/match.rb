@@ -12,6 +12,10 @@ class Match < ActiveRecord::Base
 		end
 	end
 
+	def self.unplayed
+		Match.where(team1_goals: nil, team2_goals: nil)
+	end
+
 	def self.import_from_csv(path)
 		require 'csv'
 		raw = File.read(path)
