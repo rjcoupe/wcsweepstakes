@@ -100,7 +100,7 @@ class Team < ActiveRecord::Base
 			else
 				name = self.name
 		end
-		"/assets/flags/#{size}/#{name}.png"
+		"#{name}.png"
 	end
 
 
