@@ -100,7 +100,7 @@ class Team < ActiveRecord::Base
 			else
 				name = self.name
 		end
-		"#{name}.png"
+		"flags/32/#{name}.png"
 	end
 
 
