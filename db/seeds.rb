@@ -47,12 +47,3 @@ Team.create(
 
 	]
 )
-
-Match.create([
-	{group: Group.find_by(letter: 'A'), team1: Team.find_by(name: 'Brazil').id, team2: Team.find_by(name: 'Croatia').id, date: '12 June 2014 21:00', stage: 'G'},
-	{group: Group.find_by(letter: 'A'), team1: Team.find_by(name: 'Mexico').id, team2: Team.find_by(name: 'Cameroon').id, date: '13 June 2014 17:00', stage: 'G'},
-	{group: Group.find_by(letter: 'A'), team1: Team.find_by(name: 'Brazil').id, team2: Team.find_by(name: 'Mexico').id, date: '17 June 2014 20:00', stage: 'G'},
-	{group: Group.find_by(letter: 'A'), team1: Team.find_by(name: 'Cameroon').id, team2: Team.find_by(name: 'Croatia').id, date: '18 June 2014 23:00', stage: 'G'},
-	{group: Group.find_by(letter: 'A'), team1: Team.find_by(name: 'Cameroon').id, team2: Team.find_by(name: 'Brazil').id, date: '23 June 2014 21:00', stage: 'G'},
-	{group: Group.find_by(letter: 'A'), team1: Team.find_by(name: 'Croatia').id, team2: Team.find_by(name: 'Mexico').id, date: '23 June 2014 21:00', stage: 'G'}
-])
