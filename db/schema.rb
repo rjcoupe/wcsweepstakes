@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140523112244) do
+ActiveRecord::Schema.define(version: 20140609101635) do
 
   create_table "groups", force: true do |t|
     t.string   "letter"
@@ -36,6 +36,7 @@ ActiveRecord::Schema.define(version: 20140523112244) do
     t.boolean  "eliminated", default: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "email"
   end
 
   create_table "teams", force: true do |t|
