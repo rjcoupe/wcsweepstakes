@@ -68,7 +68,7 @@ class Team < ActiveRecord::Base
 	def has_qualified?
 		can_get_more_points = 0
 		self.group.teams.where('id != ?', self.id).each do |t|
-			can_get_more_points += 1 if t.max_gpoints >= self.max_gpoints
+			can_get_more_points += 1 if t.max_gpoints >= self.qpoints
 			puts "#{t.name} can get #{t.max_gpoints}"
 		end
 		puts "I can get #{self.max_gpoints}"
@@ -77,6 +77,12 @@ class Team < ActiveRecord::Base
 
 	def can_qualify?
 		return true if self.group_position <= 2
+		needed = Team.where('group_id = ?', self.group_id).order('qpoints DESC, (ggoals_for - ggoals_against) DESC, ggoals_for DESC, ggoals_against ASC')[1].qpoints
+		if needed > self.max_gpoints then
+			return false
+		else
+			return true
+		end
 	end
 
 
