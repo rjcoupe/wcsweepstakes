@@ -92,7 +92,7 @@ class Team < ActiveRecord::Base
 			when 'Costa Rica'
 				name = 'Costa-rica'
 			when 'Ivory Coast'
-				name = 'Cote_d\'Ivoire'
+				name = 'Ivory-Coast'
 			when 'Bosnia & Herzegovina'
 				name = 'Bosnia-and-Herzegovina'
 			when 'South Korea'
@@ -100,7 +100,7 @@ class Team < ActiveRecord::Base
 			else
 				name = self.name
 		end
-		"flags/32/#{name}.png"
+		"flags/32/#{ERB::Util.html_escape(name)}.png"
 	end
 
 
