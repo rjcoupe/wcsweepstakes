@@ -27,7 +27,7 @@
 						team.can_qualify? ? qualifyclass = 'info' : qualifyclass = 'danger' 
 					end %>
 				<tr class='<%=qualifyclass%>'>
-					<td><%= team.name %> [<%=team.person.present? ? team.person.name : 'Nobody' %>]</td>
+					<td style="background: url('<%=team.flag(32)%>') no-repeat center right;"><%= team.name %> [<%=team.person.present? ? team.person.name : 'Nobody' %>]</td>
 					<td><%= team.list_matches(true, 'G').count %></td>
 					<td><%= team.list_results('w', 'G').count %></td>
 					<td><%= team.list_results('d', 'G').count %></td>
@@ -44,13 +44,13 @@
 		<% group[:matches].each do |match| %>
 			<tr>
 				<td class="text-center"><%=match.date.strftime('%a %e %b %k:%M')%></td>
-				<td class="text-right"><%=Team.find(match.team1).name%></td>
+				<td class="text-right" style="background: url('<%=Team.find(match.team1).flag(32)%>') no-repeat center left;"><%=Team.find(match.team1).name%></td>
 				<% if match.team1_goals.present? and match.team2_goals.present? %>
 					<td class="text-center"><%= "#{match.team1_goals} - #{match.team2_goals}" %></td>
 				<% else %>
 					<td class="text-center">v</td>
 				<% end %>
-				<td class="text-left"><%=Team.find(match.team2).name%></td>
+				<td class="text-left" style="background: url('<%=Team.find(match.team2).flag(32)%>') no-repeat center right;"><%=Team.find(match.team2).name%></td>
 			</tr>
 		<% end %>
 		<% end %>

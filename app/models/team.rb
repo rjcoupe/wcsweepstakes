@@ -85,6 +85,24 @@ class Team < ActiveRecord::Base
 		end
 	end
 
+	def flag(size)
+		case self.name
+			when 'Greece'
+				name = 'greece'
+			when 'Costa Rica'
+				name = 'Costa-rica'
+			when 'Ivory Coast'
+				name = 'Cote_d\'Ivoire'
+			when 'Bosnia & Herzegovina'
+				name = 'Bosnia-and-Herzegovina'
+			when 'South Korea'
+				name = 'South-Korea'
+			else
+				name = self.name
+		end
+		"/assets/flags/#{size}/#{name}.png"
+	end
+
 
 	
 end
